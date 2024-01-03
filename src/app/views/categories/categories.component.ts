@@ -22,4 +22,8 @@ export class CategoriesComponent {
   ngOnInit(): void {
     this.categories = this.dataHandlerService.getCategories();
   }
+
+  showTasksByCategory(category: Category) {
+    this.dataHandlerService.getTasksByCategory(category);
+  }
 }

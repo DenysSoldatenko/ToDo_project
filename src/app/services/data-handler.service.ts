@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Category} from "../models/Category";
 import {TestData} from "../dataGeneration/TestData";
 import {Task} from "../models/Task";
@@ -16,5 +16,9 @@ export class DataHandlerService {
 
   getTasks(): Task[]{
     return TestData.tasks;
+  }
+
+  getTasksByCategory(category: Category): Task[] {
+    return TestData.tasks.filter(task => task.category === category);
   }
 }
