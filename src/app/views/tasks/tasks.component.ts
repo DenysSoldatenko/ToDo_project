@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Task} from "../../models/Task";
 import {DataHandlerService} from "../../services/data-handler.service";
 import {NgForOf} from "@angular/common";
@@ -19,7 +19,7 @@ export class TasksComponent {
   constructor(private dataHandlerService: DataHandlerService) {
   }
 
-  ngOnInit(): void {
-    this.tasks = this.dataHandlerService.getTasks();
+  ngOnInit() {
+    this.dataHandlerService.tasksSubject.subscribe(tasks => this.tasks = tasks);
   }
 }

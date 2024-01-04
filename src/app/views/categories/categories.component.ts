@@ -24,6 +24,6 @@ export class CategoriesComponent {
   }
 
   showTasksByCategory(category: Category) {
-    this.dataHandlerService.getTasksByCategory(category);
+    this.dataHandlerService.fillTasksByCategory(category);
   }
 }
