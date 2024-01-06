@@ -15,6 +15,7 @@ import {NgForOf} from "@angular/common";
 export class CategoriesComponent {
 
   categories: Category[] = [];
+  selectedCategory: Category | undefined;
 
   constructor(private dataHandlerService: DataHandlerService) {
   }
@@ -24,6 +25,7 @@ export class CategoriesComponent {
   }
 
   showTasksByCategory(category: Category) {
+    this.selectedCategory = category;
     this.dataHandlerService.fillTasksByCategory(category);
   }
 }
