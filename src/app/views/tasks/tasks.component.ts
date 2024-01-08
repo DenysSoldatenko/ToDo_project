@@ -23,4 +23,8 @@ export class TasksComponent {
   ngOnInit() {
     this.dataHandlerService.tasksSubject.subscribe(tasks => this.tasks = tasks);
   }
+
+  toggleTaskCompleted(task: Task) {
+    task.completed = !task.completed;
+  }
 }
