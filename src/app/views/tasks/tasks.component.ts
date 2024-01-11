@@ -38,6 +38,8 @@ export class TasksComponent {
   protected tasks: Task[] = [];
   protected displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
   protected dataSource: MatTableDataSource<Task> = new MatTableDataSource();
+  private readonly COMPLETED_TASK_COLOR = '#F8F9FA';
+  private readonly DEFAULT_PRIORITY_COLOR = '#fff';
 
   constructor(private dataHandlerService: DataHandlerService) {
   }
@@ -47,8 +49,17 @@ export class TasksComponent {
     this.refreshTable();
   }
 
-  getPriorityColor(task: Task) {
-    return task.priority?.color ?? '#fff';
+
+  protected getPriorityColor(task: Task): string {
+    if (task.completed) {
+      return this.COMPLETED_TASK_COLOR;
+    }
+
+    if (task.priority && task.priority.color) {
+      return task.priority.color;
+    }
+
+    return this.DEFAULT_PRIORITY_COLOR;
   }
 
   private refreshTable() {
