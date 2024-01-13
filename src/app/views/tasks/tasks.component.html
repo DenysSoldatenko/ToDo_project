@@ -2,7 +2,7 @@
   <div class="card-header card-header-warning">
     <h4 class="card-title">Tasks</h4>
   </div>
-  <div class="card-body table-responsive" >
+  <div class="card-body table-responsive" *ngIf="tasks.length > 0">
     <table [dataSource]="dataSource" mat-table matSort>
 
       <ng-container matColumnDef="color">
@@ -26,21 +26,21 @@
 
       <ng-container matColumnDef="date">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
-        <td *matCellDef="let task" [ngClass]="{'completed': task.completed, 'nodate': task.date == null}" class="col-date" mat-cell>
-          {{ task.date | date: "short" }}
+        <td *matCellDef="let task" [ngClass]="{'completed': task.completed, 'novalue': task.date == null}" class="col-date" mat-cell>
+          {{ task.date ? (task.date | date: "short") : "No date" }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="priority">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Priority</th>
-        <td *matCellDef="let task" class="col-priority" [ngClass]="{'completed': task.completed, 'nopriority': task.priority == null}" mat-cell>
+        <td *matCellDef="let task" class="col-priority" [ngClass]="{'completed': task.completed, 'novalue': task.priority == null}" mat-cell>
           {{ task.priority?.title ?? 'No priority' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="category">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Category</th>
-        <td *matCellDef="let task" class="col-category" [ngClass]="{'completed': task.completed, 'nocategory': task.category == null, 'link': !task.completed && task.category}" mat-cell>
+        <td *matCellDef="let task" class="col-category" [ngClass]="{'completed': task.completed, 'novalue': task.category == null, 'link': !task.completed && task.category}" mat-cell>
           {{ task.category?.title ?? 'No category' }}
         </td>
       </ng-container>
@@ -49,7 +49,7 @@
 
       <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
     </table>
-
     <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
   </div>
+  <div *ngIf="tasks.length == 0"><p class="not-found">Not found!</p></div>
 </div>
