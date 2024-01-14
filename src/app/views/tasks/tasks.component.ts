@@ -48,8 +48,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   protected displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
   protected dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
-  @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | undefined;
-  @ViewChild(MatSort, {static: false}) private sort: MatSort | undefined;
+  @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | null = null;
+  @ViewChild(MatSort, {static: false}) private sort: MatSort | null = null;
 
   constructor(private dataHandlerService: DataHandlerService) { }
 
@@ -81,8 +81,8 @@ export class TasksComponent implements OnInit, AfterViewInit {
   }
 
   private addTableObjects() {
-    this.dataSource.sort = this.sort ?? null;
-    this.dataSource.paginator = this.paginator ?? null;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   private configureSortingDataAccessor() {
