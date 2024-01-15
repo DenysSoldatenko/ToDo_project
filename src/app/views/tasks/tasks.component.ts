@@ -54,7 +54,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
   constructor(private dataHandlerService: DataHandlerService) { }
 
   ngOnInit() {
-    this.dataHandlerService.tasksSubject.subscribe(tasks => this.tasks = tasks);
+    this.dataHandlerService.getAllTasks().subscribe(tasks => this.tasks = tasks);
     this.refreshTable();
   }
 

@@ -1,28 +1,30 @@
 import {TaskDAO} from "../interface/TaskDAO";
 import {Task} from "../../models/Task";
-import {Observable} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {Category} from "../../models/Category";
 import {Priority} from "../../models/Priority";
+import {TestData} from "../../dataGeneration/TestData";
 
 export class TaskDAOImpl implements TaskDAO{
   add(arg0: Task): Observable<Task> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   delete(id: number): Observable<Task> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   getAll(): Observable<Task[]> {
-    return undefined;
+    return of(TestData.tasks);
   }
 
   getById(id: number): Observable<Task> {
-    return undefined;
+    const foundTask = TestData.tasks.find(task => task.id === id);
+    return foundTask ? of(foundTask) : throwError(() => new Error('Task not found'));
   }
 
   getCompletedCount(category: Category): Observable<number> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   getTotalCount(category: Category): Observable<number>;
@@ -30,11 +32,11 @@ export class TaskDAOImpl implements TaskDAO{
   getTotalCount(): Observable<number>;
 
   getTotalCount(category?: Category): Observable<number> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   getUncompletedCount(category: Category): Observable<number> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   searchByCriteria(criteria: {
@@ -43,10 +45,10 @@ export class TaskDAOImpl implements TaskDAO{
     status: boolean;
     priority: Priority
   }): Observable<Task[]> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 
   update(arg0: Task): Observable<Task> {
-    return undefined;
+    return throwError(() => new Error('Failed to add task'));
   }
 }

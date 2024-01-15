@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {DataHandlerService} from "../../services/data-handler.service";
 import {Category} from "../../models/Category";
 import {NgForOf} from "@angular/common";
 
@@ -17,15 +16,4 @@ export class CategoriesComponent {
   categories: Category[] = [];
   selectedCategory: Category | undefined;
 
-  constructor(private dataHandlerService: DataHandlerService) {
-  }
-
-  ngOnInit() {
-    this.dataHandlerService.categorySubject.subscribe(category => this.categories = category);
-  }
-
-  showTasksByCategory(category: Category) {
-    this.selectedCategory = category;
-    this.dataHandlerService.fillTasksByCategory(category);
-  }
 }
