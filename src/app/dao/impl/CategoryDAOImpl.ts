@@ -1,6 +1,7 @@
 import {CategoryDAO} from "../interface/CategoryDAO";
-import {Observable, throwError} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {Category} from "../../models/Category";
+import {TestData} from "../../dataGeneration/TestData";
 
 export class CategoryDAOImpl implements CategoryDAO {
 
@@ -13,11 +14,12 @@ export class CategoryDAOImpl implements CategoryDAO {
   }
 
   getAll(): Observable<Category[]> {
-    return throwError(() => new Error('Failed to add category'));
+    return of(TestData.categories);
   }
 
   getById(id: number): Observable<Category> {
-    return throwError(() => new Error('Failed to add category'));
+    const foundCategory = TestData.categories.find(task => task.id === id);
+    return foundCategory ? of(foundCategory) : throwError(() => new Error('Category not found'));
   }
 
   searchByTitle(title: string): Observable<Category[]> {
