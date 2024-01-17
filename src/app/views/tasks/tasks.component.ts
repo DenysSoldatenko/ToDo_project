@@ -1,6 +1,5 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Task} from "../../models/Task";
-import {DataHandlerService} from "../../services/data-handler.service";
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {
   MatCell, MatCellDef,
@@ -39,27 +38,21 @@ import {MatSort, MatSortHeader} from "@angular/material/sort";
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.css'
 })
-export class TasksComponent implements OnInit, AfterViewInit {
+export class TasksComponent implements OnInit {
 
   private readonly COMPLETED_TASK_COLOR = '#F8F9FA';
   private readonly DEFAULT_PRIORITY_COLOR = '#fff';
 
-  protected tasks: Task[] = [];
+  @Input()
+  tasks: Task[] = [];
   protected displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
   protected dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | null = null;
   @ViewChild(MatSort, {static: false}) private sort: MatSort | null = null;
 
-  constructor(private dataHandlerService: DataHandlerService) { }
-
   ngOnInit() {
-    this.dataHandlerService.getAllTasks().subscribe(tasks => this.tasks = tasks);
-    this.refreshTable();
-  }
-
-  ngAfterViewInit() {
-    this.addTableObjects();
+    this.fillTable();
   }
 
   protected getPriorityColor(task: Task): string {
@@ -74,7 +67,7 @@ export class TasksComponent implements OnInit, AfterViewInit {
     return this.DEFAULT_PRIORITY_COLOR;
   }
 
-  private refreshTable() {
+  private fillTable() {
     this.dataSource.data = this.tasks;
     this.addTableObjects();
     this.configureSortingDataAccessor();
