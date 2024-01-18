@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {Category} from "../../models/Category";
 import {NgForOf} from "@angular/common";
 import {DataHandlerService} from "../../services/data-handler.service";
@@ -12,16 +12,10 @@ import {DataHandlerService} from "../../services/data-handler.service";
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })
-export class CategoriesComponent implements OnInit {
-
+export class CategoriesComponent {
+  @Input()
   categories: Category[] = [];
   selectedCategory: Category | undefined;
-
-  constructor(private dataHandlerService: DataHandlerService) { }
-
-  ngOnInit() {
-    this.dataHandlerService.getAllCategories().subscribe(category => this.categories = category);
-  }
 
   showTasksByCategory(category: Category) {
 
