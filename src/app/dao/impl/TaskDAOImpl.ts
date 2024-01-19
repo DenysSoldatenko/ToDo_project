@@ -5,7 +5,7 @@ import {Category} from "../../models/Category";
 import {Priority} from "../../models/Priority";
 import {TestData} from "../../dataGeneration/TestData";
 
-export class TaskDAOImpl implements TaskDAO{
+export class TaskDAOImpl implements TaskDAO {
   add(arg0: Task): Observable<Task> {
     return throwError(() => new Error('Failed to add task'));
   }
@@ -39,14 +39,32 @@ export class TaskDAOImpl implements TaskDAO{
     return throwError(() => new Error('Failed to add task'));
   }
 
-  searchByCriteria(criteria: {
-    category: Category;
-    searchText: string;
-    status: boolean;
-    priority: Priority
-  }): Observable<Task[]> {
-    return throwError(() => new Error('Failed to add task'));
+  searchByCriteria(
+    category: Category,
+    searchText: string | null,
+    status: boolean | null,
+    priority: Priority | null
+  ): Observable<Task[]> {
+    return of(this.searchTasks(category, searchText, status, priority));
+
   }
+
+  private searchTasks(
+    category: Category,
+    searchText: string | null,
+    status: boolean | null,
+    priority: Priority | null
+  ): Task[] {
+
+    let allTasks = TestData.tasks;
+
+    if (category != null) {
+      allTasks = allTasks.filter(todo => todo.category === category);
+    }
+
+    return allTasks;
+  }
+
 
   update(arg0: Task): Observable<Task> {
     return throwError(() => new Error('Failed to add task'));

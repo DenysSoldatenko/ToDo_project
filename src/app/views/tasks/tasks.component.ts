@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Task} from "../../models/Task";
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {
@@ -43,13 +43,26 @@ export class TasksComponent implements OnInit {
   private readonly COMPLETED_TASK_COLOR = '#F8F9FA';
   private readonly DEFAULT_PRIORITY_COLOR = '#fff';
 
-  @Input()
-  tasks: Task[] = [];
   protected displayedColumns: string[] = ['color', 'id', 'title', 'date', 'priority', 'category'];
   protected dataSource: MatTableDataSource<Task> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | null = null;
   @ViewChild(MatSort, {static: false}) private sort: MatSort | null = null;
+
+  tasks: Task[] = [];
+
+  @Input('tasks')
+  set setTasks(tasks: Task[]) {
+    this.tasks = tasks;
+    this.fillTable();
+  }
+
+  @Output()
+  selectTask = new EventEmitter<Task>();
+
+  showTaskByClick(task: Task) {
+    this.selectTask.emit(task);
+  }
 
   ngOnInit() {
     this.fillTable();

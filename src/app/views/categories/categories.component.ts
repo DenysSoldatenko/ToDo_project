@@ -1,7 +1,6 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Category} from "../../models/Category";
 import {NgForOf} from "@angular/common";
-import {DataHandlerService} from "../../services/data-handler.service";
 
 @Component({
   selector: 'app-categories',
@@ -15,9 +14,15 @@ import {DataHandlerService} from "../../services/data-handler.service";
 export class CategoriesComponent {
   @Input()
   categories: Category[] = [];
+
+  @Output()
+  selectCategory = new EventEmitter<Category>();
   selectedCategory: Category | undefined;
 
   showTasksByCategory(category: Category) {
-
+    if (this.selectedCategory !== category) {
+      this.selectedCategory = category;
+      this.selectCategory.emit(category);
+    }
   }
 }
