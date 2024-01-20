@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Injector, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Task} from "../../models/Task";
 import {DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {
@@ -12,6 +12,8 @@ import {
 } from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {EditTaskDialogComponent} from "../../dialog/edit-task-dialog/edit-task-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-tasks',
@@ -48,8 +50,15 @@ export class TasksComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | null = null;
   @ViewChild(MatSort, {static: false}) private sort: MatSort | null = null;
+  private dialog: MatDialog | null = null;
+  protected tasks: Task[] = [];
 
-  tasks: Task[] = [];
+  constructor(private injector: Injector) {}
+
+  ngOnInit(): void {
+    this.dialog = this.injector.get(MatDialog);
+    this.fillTable();
+  }
 
   @Input('tasks')
   set setTasks(tasks: Task[]) {
@@ -60,12 +69,18 @@ export class TasksComponent implements OnInit {
   @Output()
   selectTask = new EventEmitter<Task>();
 
-  showTaskByClick(task: Task) {
-    this.selectTask.emit(task);
-  }
+  protected openEditTaskDialog(task: Task): void {
+    if (this.dialog) {
+      const dialogReference = this.dialog.open(
+        EditTaskDialogComponent, {data: [task, 'Edit task'], autoFocus: false}
+      );
 
-  ngOnInit() {
-    this.fillTable();
+      dialogReference.afterClosed().subscribe(result => {
+
+      });
+    } else {
+      console.error("`this.dialog` is not available. Unable to open edit dialog!");
+    }
   }
 
   protected getPriorityColor(task: Task): string {
@@ -80,18 +95,18 @@ export class TasksComponent implements OnInit {
     return this.DEFAULT_PRIORITY_COLOR;
   }
 
-  private fillTable() {
+  private fillTable(): void {
     this.dataSource.data = this.tasks;
     this.addTableObjects();
     this.configureSortingDataAccessor();
   }
 
-  private addTableObjects() {
+  private addTableObjects(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
-  private configureSortingDataAccessor() {
+  private configureSortingDataAccessor(): void {
     this.dataSource.sortingDataAccessor = (task, colName) => {
       switch (colName) {
         case 'priority': {

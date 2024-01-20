@@ -6,11 +6,12 @@ import {TasksComponent} from "./views/tasks/tasks.component";
 import {DataHandlerService} from "./services/data-handler.service";
 import {Task} from './models/Task';
 import {Category} from "./models/Category";
+import {EditTaskDialogComponent} from "./dialog/edit-task-dialog/edit-task-dialog.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CategoriesComponent, NgForOf, TasksComponent],
+  imports: [RouterOutlet, CategoriesComponent, NgForOf, TasksComponent, EditTaskDialogComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

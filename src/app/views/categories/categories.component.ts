@@ -19,7 +19,7 @@ export class CategoriesComponent {
   selectCategory = new EventEmitter<Category>();
   selectedCategory: Category | undefined;
 
-  showTasksByCategory(category: Category) {
+  showTasksByCategory(category: Category): void {
     if (this.selectedCategory !== category) {
       this.selectedCategory = category;
       this.selectCategory.emit(category);
