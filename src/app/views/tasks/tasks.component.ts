@@ -50,7 +50,7 @@ export class TasksComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: false}) private paginator: MatPaginator | null = null;
   @ViewChild(MatSort, {static: false}) private sort: MatSort | null = null;
-  private dialog: MatDialog | null = null;
+  private dialog:  MatDialog = {} as MatDialog;
   protected tasks: Task[] = [];
 
   constructor(private injector: Injector) {}
@@ -70,17 +70,17 @@ export class TasksComponent implements OnInit {
   selectTask = new EventEmitter<Task>();
 
   protected openEditTaskDialog(task: Task): void {
-    if (this.dialog) {
-      const dialogReference = this.dialog.open(
-        EditTaskDialogComponent, {data: [task, 'Edit task'], autoFocus: false}
-      );
+    const dialogReference = this.dialog.open(
+      EditTaskDialogComponent,
+      {data: [task, 'Edit task'], autoFocus: false}
+    );
 
-      dialogReference.afterClosed().subscribe(result => {
-
-      });
-    } else {
-      console.error("`this.dialog` is not available. Unable to open edit dialog!");
-    }
+    dialogReference.afterClosed().subscribe(result => {
+      if (result as Task) {
+        this.selectTask.emit(task);
+        return;
+      }
+    });
   }
 
   protected getPriorityColor(task: Task): string {

@@ -65,8 +65,9 @@ export class TaskDAOImpl implements TaskDAO {
     return allTasks;
   }
 
-
-  update(arg0: Task): Observable<Task> {
-    return throwError(() => new Error('Failed to add task'));
+  update(task: Task): Observable<Task> {
+    const taskTmp = TestData.tasks.find(t => t.id === task.id);
+    TestData.tasks.splice(TestData.tasks.indexOf(<Task>taskTmp), 1, task);
+    return of(task);
   }
 }

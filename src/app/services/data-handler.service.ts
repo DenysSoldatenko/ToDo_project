@@ -22,10 +22,16 @@ export class DataHandlerService {
     return this.categoryDao.getAll();
   }
 
-  public searchTasksByCategory(category: Category,
-                               searchText: string | null = null,
-                               status: boolean | null = null,
-                               priority: Priority | null = null) {
+  public searchTasks(
+    category: Category,
+    searchText: string | null = null,
+    status: boolean | null = null,
+    priority: Priority | null = null
+  ) {
     return this.taskDao.searchByCriteria(category, searchText, status, priority);
+  }
+
+  updateTask(task: Task): Observable<Task> {
+    return this.taskDao.update(task);
   }
 }

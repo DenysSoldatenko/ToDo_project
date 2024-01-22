@@ -31,12 +31,15 @@ export class AppComponent implements OnInit {
 
   protected onSelectCategory(category: Category) {
     this.selectedCategory = category;
-    this.dataHandler.searchTasksByCategory(
+    this.dataHandler.searchTasks(
       this.selectedCategory, null, null, null
-    ).subscribe(tasks => {this.tasks = tasks;});
+    ).subscribe(tasks => {
+      this.tasks = tasks;
+    });
   }
 
-  onSelectTask(task: Task) {
-    console.log(task);
+  protected onUpdateTask(task: Task) {
+    this.dataHandler.updateTask(task).subscribe(() => {
+    });
   }
 }
