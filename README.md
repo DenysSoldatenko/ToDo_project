@@ -1,27 +1,22 @@
-# ToDoProject
+# ToDo_project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
+## Overview
 
-## Development server
+This ToDo project is built with Angular and designed to help you efficiently manage your tasks. It features a user-friendly interface with support for:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Task Management**: Add, edit, and delete tasks with ease.
+- **Category & Priority Management**: Organize tasks into categories and assign priorities.
+- **Statistics & Search**: View task statistics and use search and filter options to find tasks quickly.
+- **Responsive Design**: A mobile-friendly interface using Angular Material for a seamless experience across devices.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Interactive task management
+- Customizable categories and priorities
+- Task statistics and filtering
+- Mobile-responsive UI
+- Integration of Angular Material components
 
-## Build
+## Note
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+This repository is **unfinished**. The project is still under development, and features may be incomplete or subject to change.
